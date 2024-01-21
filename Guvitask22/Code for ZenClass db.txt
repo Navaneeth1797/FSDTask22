@@ -1,0 +1,61 @@
+create database ZenClass;
+
+use ZenClass;
+
+create table users(
+user_id int primary key auto_increment,
+username varchar(100) unique not null,
+password varchar (50) not null,
+first_name varchar(100),
+last_name  varchar (100),
+email varchar (50) unique,
+mobile_number varchar (12),
+ date_of_birth date,
+ address varchar (150),
+ registration_date datetime default current_timestamp
+);
+
+create table sessionstopics (
+topic_id int primary key auto_increment,
+topic_content varchar(250) unique not null,
+description text,
+topic_date date,
+topic_time time
+);
+
+create table tasks (
+task_id int primary key auto_increment,
+title varchar (50),
+description text,
+task_date date,
+user_id int,
+foreign key (user_id) references users (user_id)
+);
+
+create table dashbord (
+attendence_id int primary key auto_increment,
+attendence_percentage int not null,
+status boolean default (0),
+user_id int,
+topic_id int,
+foreign key (user_id) references users (user_id),
+foreign key (topic_id) references sessionstopics  (topic_id)
+);
+
+create table capstone (
+capstone_id int primary key auto_increment,
+project_name varchar(50),
+description text,
+user_id int,
+foreign key (user_id) references users (user_id)
+);
+
+create table queries (
+query_id int primary key auto_increment,
+querytopic_id int not null,
+details_description text,
+slot_time time unique not null,
+status varchar(30),
+user_id int,
+foreign key (user_id) references users (user_id)
+);
